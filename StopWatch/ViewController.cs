@@ -1,68 +1,104 @@
 ﻿using System;
+using System.Collections.Generic;
 using Foundation;
 using UIKit;
 
-namespace StopWatch
+namespace Stopwatch
 {
-    public partial class ViewController : UIViewController
+    public partial class ViewController : UIViewController, IUITableViewDataSource
     {
-        int _time;
+        int _time = 0;
+        int _lastLapTime = 0;
         NSTimer _timer;
+        List<int> _laps = new List<int>();
 
-        partial void Reset_UpInside(UIButton sender)
-        {
-            _time = 0;
-            Reset.Enabled = false;
-            UpdateLabel();
-        }
-
-        partial void StartStop_UpInside(UIButton sender)
-        {
-            Reset.Enabled = true;
-
-            if (_timer == null)
-            {
-                StartStop.SetTitle("Stop", UIControlState.Normal);
-                _timer = NSTimer.CreateRepeatingScheduledTimer(0.01, Timer_Tick);
-            }
-            else
-            {
-                StartStop.SetTitle("Start", UIControlState.Normal);
-                _timer.Invalidate();
-                _timer = null;
-            }
-        }
-
-        protected ViewController(IntPtr handle) : base(handle)
+        public ViewController(IntPtr handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.
         }
 
-        public override void ViewDidLoad()
+        partial void StartButton_TouchUpInside(RoundButton sender)
         {
-            base.ViewDidLoad();
-            // Perform any additional setup after loading the view, typically from a nib.
+            ResetButton.Hidden = true;
+            LapButton.Hidden = false;
+            LapButton.Enabled = true;
+            StartButton.Hidden = true;
+            StopButton.Hidden = false;
+
+            _timer = NSTimer.CreateScheduledTimer(0.01, true, _ =>
+            {
+                _time += 1;
+                UpdateLabel();
+            });
+            NSRunLoop.Current.AddTimer(_timer, NSRunLoopMode.Common);
         }
 
-        public override void DidReceiveMemoryWarning()
+        partial void StopButton_TouchUpInside(RoundButton sender)
         {
-            base.DidReceiveMemoryWarning();
-            // Release any cached data, images, etc that aren't in use.
+            LapButton.Hidden = true;
+            ResetButton.Hidden = false;
+            StopButton.Hidden = true;
+            StartButton.Hidden = false;
+
+            _timer.Invalidate();
+            _timer = null;
         }
 
-        private void Timer_Tick(NSTimer timer)
+        partial void ResetButton_TouchUpInside(RoundButton sender)
         {
-            _time++;
+            ResetButton.Hidden = true;
+            LapButton.Hidden = false;
+            LapButton.Enabled = false;
+
+            _time = 0;
+            _lastLapTime = 0;
+            _laps.Clear();
+
+            LapsTable.ReloadData();
+
             UpdateLabel();
+        }
+
+        partial void LapButton_TouchUpInside(RoundButton sender)
+        {
+            _laps.Add(_time - _lastLapTime);
+            _lastLapTime = _time;
+
+
+            LapsTable.ReloadData();
         }
 
         private void UpdateLabel()
         {
-            var hundredth = _time % 100;
-            var seconds = (_time / 100) % 60;
-            var minutes = (_time / 6000) % 60;
-            var hours = _time / 360000;
-            timerDisplay.Text = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", hours, minutes, seconds, hundredth);
+            TimerDisplay.Text = FormatTime(_time);
+        }
+
+        private string FormatTime(int time)
+        {
+            var hundredth = time % 100;
+            var seconds = (time / 100) % 60;
+            var minutes = (time / 6000) % 60;
+            var hours = time / 360000;
+            if (hours > 0) {
+                return $"{hours}:{minutes:00}:{seconds:00}.{hundredth:00}";
+            } else {
+                return $"{minutes:00}:{seconds:00}.{hundredth:00}";
+            }
+        }
+
+        public nint RowsInSection(UITableView tableView, nint section)
+        {
+            return _laps.Count;
+        }
+
+        public UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+        {
+            var cell = tableView.DequeueReusableCell("ContentCell", indexPath);
+
+            cell.TextLabel.Text = $"Lap {_laps.Count - indexPath.Row}";
+            cell.DetailTextLabel.Text = FormatTime(_laps[_laps.Count - indexPath.Row - 1]);
+
+            return cell;
         }
     }
 }

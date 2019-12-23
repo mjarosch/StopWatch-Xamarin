@@ -8,46 +8,81 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace StopWatch
+namespace Stopwatch
 {
     [Register ("ViewController")]
     partial class ViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton Reset { get; set; }
+        Stopwatch.RoundButton LapButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton StartStop { get; set; }
+        UIKit.UITableView LapsTable { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel timerDisplay { get; set; }
+        Stopwatch.RoundButton ResetButton { get; set; }
 
-        [Action ("Reset_UpInside:")]
+        [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void Reset_UpInside (UIKit.UIButton sender);
+        Stopwatch.RoundButton StartButton { get; set; }
 
-        [Action ("StartStop_UpInside:")]
+        [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void StartStop_UpInside (UIKit.UIButton sender);
+        Stopwatch.RoundButton StopButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel TimerDisplay { get; set; }
+
+        [Action ("LapButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void LapButton_TouchUpInside (Stopwatch.RoundButton sender);
+
+        [Action ("ResetButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void ResetButton_TouchUpInside (Stopwatch.RoundButton sender);
+
+        [Action ("StartButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void StartButton_TouchUpInside (Stopwatch.RoundButton sender);
+
+        [Action ("StopButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void StopButton_TouchUpInside (Stopwatch.RoundButton sender);
 
         void ReleaseDesignerOutlets ()
         {
-            if (Reset != null) {
-                Reset.Dispose ();
-                Reset = null;
+            if (LapButton != null) {
+                LapButton.Dispose ();
+                LapButton = null;
             }
 
-            if (StartStop != null) {
-                StartStop.Dispose ();
-                StartStop = null;
+            if (LapsTable != null) {
+                LapsTable.Dispose ();
+                LapsTable = null;
             }
 
-            if (timerDisplay != null) {
-                timerDisplay.Dispose ();
-                timerDisplay = null;
+            if (ResetButton != null) {
+                ResetButton.Dispose ();
+                ResetButton = null;
+            }
+
+            if (StartButton != null) {
+                StartButton.Dispose ();
+                StartButton = null;
+            }
+
+            if (StopButton != null) {
+                StopButton.Dispose ();
+                StopButton = null;
+            }
+
+            if (TimerDisplay != null) {
+                TimerDisplay.Dispose ();
+                TimerDisplay = null;
             }
         }
     }

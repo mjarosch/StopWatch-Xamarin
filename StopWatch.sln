@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopWatch", "StopWatch\StopWatch.csproj", "{A17966FA-C401-4337-80B1-DBC3B4E55F94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopwatch", "Stopwatch\Stopwatch.csproj", "{A17966FA-C401-4337-80B1-DBC3B4E55F94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +19,11 @@ Global
 		{A17966FA-C401-4337-80B1-DBC3B4E55F94}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{A17966FA-C401-4337-80B1-DBC3B4E55F94}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{A17966FA-C401-4337-80B1-DBC3B4E55F94}.Debug|iPhone.Build.0 = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		outputpath = build/bin
 	EndGlobalSection
 EndGlobal
