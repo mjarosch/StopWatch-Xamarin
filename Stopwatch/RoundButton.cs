@@ -17,6 +17,11 @@ namespace Stopwatch
         private CALayer _innerCircleLayer = new CALayer();
         private UIColor _defaultFillColor = UIColor.White;
 
+        public RoundButton()
+        {
+            Initialize();
+        }
+
         public RoundButton(IntPtr handle) : base(handle) { }
 
         public override void AwakeFromNib()
@@ -24,41 +29,67 @@ namespace Stopwatch
             Initialize();
         }
 
-        public UIColor FillColor
+        [Export("fillColorForState:")]
+        public UIColor FillColor(UIControlState controlState)
         {
-            get => GetFillColorForState(base.State);
+            if (_fillValues.ContainsKey(controlState))
+            {
+                return _fillValues[controlState];
+            }
+
+            if (_fillValues.ContainsKey(UIControlState.Normal))
+            {
+                return _fillValues[UIControlState.Normal];
+            }
+
+            return _defaultFillColor;
+        }
+
+        [Export("setFillColor:forState:")]
+        public void SetFillColor(UIColor fillColor, UIControlState controlState)
+        {
+            if (fillColor != null)
+            {
+                _fillValues[controlState] = fillColor;
+            }
+            else
+            {
+                _fillValues.Remove(controlState);
+            }
+
+            UpdateCircleColorForState();
         }
 
         [Export("FillColorForNormal")]
         [Browsable(true)]
         public UIColor FillColorForNormal
         {
-            get => GetFillColorForState(UIControlState.Normal);
-            set => SetFillColorForState(UIControlState.Normal, value);
+            get => FillColor(UIControlState.Normal);
+            set => SetFillColor(value, UIControlState.Normal);
         }
 
         [Export("FillColorForHighlighted")]
         [Browsable(true)]
         public UIColor FillColorForHighlighted
         {
-            get => GetFillColorForState(UIControlState.Highlighted);
-            set => SetFillColorForState(UIControlState.Highlighted, value);
+            get => FillColor(UIControlState.Highlighted);
+            set => SetFillColor(value, UIControlState.Highlighted);
         }
 
         [Export("FillColorForSelected")]
         [Browsable(true)]
         public UIColor FillColorForSelected
         {
-            get => GetFillColorForState(UIControlState.Selected);
-            set => SetFillColorForState(UIControlState.Selected, value);
+            get => FillColor(UIControlState.Selected);
+            set => SetFillColor(value, UIControlState.Selected);
         }
 
         [Export("FillColorForDisabled")]
         [Browsable(true)]
         public UIColor FillColorForDisabled
         {
-            get => GetFillColorForState(UIControlState.Disabled);
-            set => SetFillColorForState(UIControlState.Disabled, value);
+            get => FillColor(UIControlState.Disabled);
+            set => SetFillColor(value, UIControlState.Disabled);
         }
 
         public override bool Selected
@@ -102,6 +133,8 @@ namespace Stopwatch
             _innerCircleLayer.MasksToBounds = true;
             Layer.InsertSublayer(_innerCircleLayer, 0);
 
+            base.ContentEdgeInsets = new UIEdgeInsets(16, 16, 16, 16);
+
             UpdateCircleColorForState();
         }
 
@@ -124,38 +157,9 @@ namespace Stopwatch
 
         private void UpdateCircleColorForState()
         {
-            var fillColor = FillColor.CGColor;
+            var fillColor = FillColor(base.State).CGColor;
             _outerCircleLayer.BorderColor = fillColor;
             _innerCircleLayer.BackgroundColor = fillColor;
-        }
-
-        private UIColor GetFillColorForState(UIControlState state)
-        {
-            if (_fillValues.ContainsKey(state))
-            {
-                return _fillValues[state];
-            }
-
-            if (_fillValues.ContainsKey(UIControlState.Normal))
-            {
-                return _fillValues[UIControlState.Normal];
-            }
-
-            return _defaultFillColor;
-        }
-
-        private void SetFillColorForState(UIControlState state, UIColor color)
-        {
-            if (color != null)
-            {
-                _fillValues[state] = color;
-            }
-            else
-            {
-                _fillValues.Remove(state);
-            }
-
-            UpdateCircleColorForState();
         }
     }
 }

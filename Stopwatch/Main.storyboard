@@ -75,10 +75,10 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="FillColorForNormal">
-                                                <color key="value" red="0.12375030670000001" green="0.34415215249999997" blue="0.14341539140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" colorSpace="custom" customColorSpace="sRGB" red="0.125490196078431" green="0.3441521525383" blue="0.14341539144516" alpha="1"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="FillColorForHighlighted">
-                                                <color key="value" red="0.094053722919999999" green="0.20540395380000001" blue="0.1226848587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" colorSpace="custom" customColorSpace="sRGB" red="0.0941176470588235" green="0.205403953790665" blue="0.122684858739376" alpha="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -92,14 +92,14 @@
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                         <state key="normal" title="Stop">
-                                            <color key="titleColor" red="0.87810546879999996" green="0.19499044500000001" blue="0.099676269149999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" colorSpace="custom" customColorSpace="sRGB" red="0.87843137254902" green="0.194990441203117" blue="0.0996762663125992" alpha="1"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="FillColorForNormal">
-                                                <color key="value" red="0.34415215249999997" green="0.1475292409" blue="0.12348460209999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" colorSpace="custom" customColorSpace="sRGB" red="0.345098039215686" green="0.147529244422913" blue="0.12348460406065" alpha="1"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="FillColorForHighlighted">
-                                                <color key="value" red="0.20540395380000001" green="0.1168335687" blue="0.14054543880000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" colorSpace="custom" customColorSpace="sRGB" red="0.203921568627451" green="0.116833567619324" blue="0.140545442700386" alpha="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -147,7 +147,7 @@
                                                 <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="FillColorForDisabled">
-                                                <color key="value" red="0.084179687500000003" green="0.084179687500000003" blue="0.084179687500000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" colorSpace="custom" customColorSpace="sRGB" red="0.0823529411764706" green="0.0841796845197678" blue="0.0841796845197678" alpha="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
