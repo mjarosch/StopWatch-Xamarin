@@ -21,7 +21,6 @@ namespace Stopwatch
         private RoundButton _stopButton;
         private UILabel _timeLabel;
         private UITableView _lapsTable;
-        private UILabel _tableLabel;
 
         public MainViewController()
         {
@@ -174,7 +173,6 @@ namespace Stopwatch
             _resetButton.Hidden = true;
             _lapButton.Hidden = false;
             _lapButton.Enabled = false;
-            _tableLabel = null;
 
             _time = 0;
             _lapTime = 0;
@@ -197,8 +195,6 @@ namespace Stopwatch
         {
             var button = new RoundButton()
             {
-                Bounds = new CGRect(0, 0, 78, 78),
-                FillColorForNormal = UIColor.Green,
                 TranslatesAutoresizingMaskIntoConstraints = false,
             };
             button.TitleLabel.Font = UIFont.SystemFontOfSize(17);
@@ -266,11 +262,6 @@ namespace Stopwatch
 
             cell.TextLabel.Text = $"Lap {_laps.Count - indexPath.Row}";
             cell.DetailTextLabel.Text = FormatTime(_laps[_laps.Count - indexPath.Row - 1]);
-
-            if (indexPath.Row == 0)
-            {
-                _tableLabel = cell.DetailTextLabel;
-            }
 
             return cell;
         }
